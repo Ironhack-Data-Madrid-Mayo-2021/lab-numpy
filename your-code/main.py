@@ -1,68 +1,75 @@
 #1. Import the NUMPY package under the name np.
 
-
+import numpy as np
 
 #2. Print the NUMPY version and the configuration.
 
-
+print(np.__version__)
+print(np.show_config())
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
 
-
+a = np.random.randint(0, 100, (2, 3, 5))
 
 #4. Print a.
 
-
+print(a)
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
 
-
+b = np.ones((5, 2, 3), dtype=int)
 
 #6. Print b.
 
+print(b)
 
 
 #7. Do a and b have the same size? How do you prove that in Python code?
 
-
+a.size = b.size
 
 
 #8. Are you able to add a and b? Why or why not?
 
-
+# No because the arrays don't have the same shape. Have tried in Jupyter and value error: "operands could not be broadcast together with shapes (2,3,5) (5,2,3)"
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
 
-
+c = b.reshape(2, 3, 5)
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
 
-
+# It works because they are now the same shape
+d = a + c
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
 
+print(a)
+print(d)
 
-
+# Every element in a is one number lower than it's corresponding element in d
 
 #12. Multiply a and c. Assign the result to e.
 
-
+e = a*c
 
 #13. Does e equal to a? Why or why not?
 
-
+#Yes, beacause the array c contains only 1's so the multiplication will give the same values as a
 
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
 
-
+d_max = d.max()
+d_min = d.min()
+d_mean = d.mean()
 
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
 
-
+f = np.empty((2, 3, 5))
 
 
 """
@@ -75,7 +82,7 @@ In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
 
-
+f = [[[25 if d_min<item<d_mean else 75 if d_mean<item<d_max else 50 if item == d_mean else 0 if item==d_min else 100 for item in sec_list] for sec_list in prim_list] for prim_list in d]
 
 
 """
@@ -99,6 +106,8 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
 
+print(d)
+print(f)
 
 """
 #18. Bonus question: instead of using numbers (i.e. 0, 25, 50, 75, and 100), how to use string values 
@@ -112,3 +121,5 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+
+g = [[["B" if d_min<item<d_mean else "D" if d_mean<item<d_max else "C" if item==d_mean else "A" if item==d_min else "E" for item in sec_list] for sec_list in prim_list] for prim_list in d]"
