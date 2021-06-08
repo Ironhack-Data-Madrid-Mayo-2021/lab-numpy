@@ -1,69 +1,71 @@
 #1. Import the NUMPY package under the name np.
-
-
+import numpy as np
 
 #2. Print the NUMPY version and the configuration.
-
-
+print(np.__version__)
+print(np.show_config())
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
-
-
+import random
+a = np.random.randn(2,3,5)
+#np.random.choice(range(1,100,1), size = (2,3,5))
+#np.random.linspace(2,3,5)
+#np.random.randint(100, size= (2,3,5))
+#np.random.empty(2,3,5)
 
 #4. Print a.
-
-
+print(a)
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
-
-
+b = np.ones((5,2,3))
 
 #6. Print b.
-
-
+print(b)
 
 #7. Do a and b have the same size? How do you prove that in Python code?
-
-
-
+a.size == b.size
+# Si ambos tienen un tamaño de 30
 
 #8. Are you able to add a and b? Why or why not?
-
-
+print (a + b)
+# pese a que su tamaño es el mismo, tienen diferentes formas (shape) por lo que no se pueden sumar
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
-
-
+c = b.reshape((2,3,5))
+print (c)
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
-
-
+d= a + c
+#d = np.add(a,c)
+#ahora funcionan porque tienen la misma forma (shape)
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
-
-
-
+print (a)
+print (d)
+#recordamos que c era una lista de unos, asi que d a aunmentado los datos de a en una unidad
 
 #12. Multiply a and c. Assign the result to e.
-
-
+e = a * c
+# e = np.multiply(a,d)
 
 #13. Does e equal to a? Why or why not?
-
-
-
+e == a
+#True. Porque hemos multiplicado todos los elementos de a por 1 (c es una matriz cuyo todos elementos son 1)
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
-
-
-
+d_max = d.max()
+print (d_max)
+d_min = d.min()
+print (d_min)
+d_mean = d.mean()
+print (d_mean)
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
-
-
-
+f = np.empty((2,3,5))
+print(f)
+f.shape
 
 """
 #16. Populate the values in f. For each value in d, if it's larger than d_min but smaller than d_mean, assign 25 to the corresponding value in f.
@@ -74,9 +76,11 @@ Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
-
-
-
+f[(d > d_min) & (d_mean > d)] = 25
+f[(d > d_mean) & (d_max > d)] = 75
+f[d==d_mean] = 50
+f[d==d_min] = 0
+f[d==d_max] = 100
 
 """
 #17. Print d and f. Do you have your expected f?
@@ -98,7 +102,8 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 75.,  75.,  75.,  75.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
-
+print(f)
+print (d)
 
 """
 #18. Bonus question: instead of using numbers (i.e. 0, 25, 50, 75, and 100), how to use string values 
@@ -112,3 +117,14 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+#RECUERDAAA:
+#estructura --> numpy.empty(shape, dtype=float, order="c", like=None)
+#problema --> could not convert string to float: "B" 
+# --> si miras la estructura se puede cambiar el dtype por otro tipo de dato --> object (ya que es una lista)
+g = np.empty ((2,3,5), dtype = object)
+g[(d > d_min) & (d_mean > d)] = "B"
+g[(d > d_mean) & (d_max > d)] = "D"
+g[d==d_mean] = "C"
+g[d==d_min] = "A"
+g[d==d_max] = "E"
+print(g)
